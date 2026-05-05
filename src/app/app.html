@@ -14,22 +14,52 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" [class.active]="activeSection() === 'home'" (click)="scrollToSection('home')">Inicio</a>
+          <a
+            class="nav-link"
+            [class.active]="activeSection() === 'home'"
+            (click)="scrollToSection('home')"
+            >Inicio</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class.active]="activeSection() === 'about'" (click)="scrollToSection('about')">Acerca de</a>
+          <a
+            class="nav-link"
+            [class.active]="activeSection() === 'about'"
+            (click)="scrollToSection('about')"
+            >Acerca de</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class.active]="activeSection() === 'skills'" (click)="scrollToSection('skills')">Stack Tecnológico</a>
+          <a
+            class="nav-link"
+            [class.active]="activeSection() === 'skills'"
+            (click)="scrollToSection('skills')"
+            >Stack Tecnológico</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class.active]="activeSection() === 'formacion'" (click)="scrollToSection('formacion')">Formación</a>
+          <a
+            class="nav-link"
+            [class.active]="activeSection() === 'formacion'"
+            (click)="scrollToSection('formacion')"
+            >Formación</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class.active]="activeSection() === 'projects'" (click)="scrollToSection('projects')">Proyectos</a>
+          <a
+            class="nav-link"
+            [class.active]="activeSection() === 'projects'"
+            (click)="scrollToSection('projects')"
+            >Proyectos</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class.active]="activeSection() === 'certificates'" (click)="scrollToSection('certificates')">Certificados</a>
+          <a
+            class="nav-link"
+            [class.active]="activeSection() === 'certificates'"
+            (click)="scrollToSection('certificates')"
+            >Certificados</a
+          >
         </li>
       </ul>
     </div>
@@ -443,9 +473,9 @@
       </div>
 
       <div class="modal-body">
-        <div class="row" style="row-gap: 3rem; column-gap: 3rem">
+        <div class="row" style="row-gap: 2rem; column-gap: 2.5rem">
           <div class="col-lg-5">
-            <div class="modal-image-wrapper" style="margin-bottom: 2rem">
+            <div class="modal-image-wrapper">
               <img
                 [src]="selectedProject()!.image"
                 [alt]="selectedProject()!.title"
@@ -458,7 +488,7 @@
             <h3 class="modal-section-title">Descripción del Proyecto</h3>
             <p class="modal-description">{{ selectedProject()!.description }}</p>
 
-            <h3 class="modal-section-title" style="margin-top: 3rem">Tecnologías Utilizadas</h3>
+            <h3 class="modal-section-title" style="margin-top: 2rem">Tecnologías Utilizadas</h3>
             <div class="modal-tech">
               @for (tech of selectedProject()!.technologies; track tech) {
                 <span class="tech-badge-large">{{ tech }}</span>
@@ -479,7 +509,7 @@
         </div>
 
         @if (selectedProject()!.videoDemo || selectedProject()!.videoMarketing) {
-          <div style="margin-top: 4rem">
+          <div style="margin-top: 2.5rem">
             <h3 class="modal-section-title">Videos del Proyecto</h3>
 
             <div class="videos-grid">
@@ -488,7 +518,7 @@
                   <h4 class="video-label">Demostración</h4>
                   <div class="video-container">
                     <iframe
-                      [src]="getYouTubeEmbedUrl(selectedProject()!.videoDemo!)"
+                      [src]="videoDemoUrl()"
                       frameborder="0"
                       allow="
                         accelerometer;
@@ -510,7 +540,7 @@
                   <h4 class="video-label">Presentación</h4>
                   <div class="video-container">
                     <iframe
-                      [src]="getYouTubeEmbedUrl(selectedProject()!.videoMarketing!)"
+                      [src]="videoMarketingUrl()"
                       frameborder="0"
                       allow="
                         accelerometer;

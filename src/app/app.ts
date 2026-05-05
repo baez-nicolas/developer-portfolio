@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 interface Project {
@@ -39,6 +39,22 @@ export class App implements OnInit {
 
   protected selectedProject = signal<Project | null>(null);
   protected selectedCertificate = signal<Certificate | null>(null);
+
+  protected videoDemoUrl = computed(() => {
+    const project = this.selectedProject();
+    if (project?.videoDemo) {
+      return this.getYouTubeEmbedUrl(project.videoDemo);
+    }
+    return null;
+  });
+
+  protected videoMarketingUrl = computed(() => {
+    const project = this.selectedProject();
+    if (project?.videoMarketing) {
+      return this.getYouTubeEmbedUrl(project.videoMarketing);
+    }
+    return null;
+  });
 
   protected showScrollButton = signal(false);
   protected scrollDirection = signal<'up' | 'down'>('up');
@@ -147,7 +163,7 @@ export class App implements OnInit {
       description:
         'Sistema de gestión de marketplace con arquitectura full stack. Backend con Java Spring Boot y frontend con Angular. (Proyecto en desarrollo)',
       technologies: ['Angular', 'Java', 'Spring Boot', 'TypeScript'],
-      image: 'syncmarket/syncmarketPortada.png',
+      image: 'syncmarket/syncMarketPortada.png',
       logo: 'syncmarket/syncMarketLogo.png',
       githubLink: 'https://github.com/baez-nicolas/syncmarket.git',
       featured: true,
@@ -172,7 +188,7 @@ export class App implements OnInit {
       description:
         'LibraryHub es una librería online moderna y elegante donde podés explorar, filtrar y comprar libros. Diseño responsive, tema oscuro/claro, carrito funcional con persistencia y gestión de stock en tiempo real.',
       technologies: ['JavaScript', 'HTML5', 'CSS3', 'Bootstrap'],
-      image: 'libraryhub/libraryhubPortada.png',
+      image: 'libraryhub/libraryHubPortada.png',
       logo: 'libraryhub/libraryHubLogo.png',
       githubLink: 'https://github.com/baez-nicolas/LibraryHub.git',
       deployLink: 'https://library-hub-phi.vercel.app/',
@@ -185,7 +201,7 @@ export class App implements OnInit {
       description:
         'FocusHub es una aplicación web minimalista y profesional para potenciar tu productividad diaria. Combina técnicas de gestión del tiempo, planificación y seguimiento de hábitos en una sola plataforma, 100% en el navegador.',
       technologies: ['Angular', 'TypeScript', 'Bootstrap'],
-      image: 'focushub/focushubPortada.png',
+      image: 'focushub/focusHubPortada.png',
       logo: 'focushub/focusHubLogo.png',
       githubLink: 'https://github.com/baez-nicolas/FocusHub.git',
       deployLink: 'https://focus-hub-gamma.vercel.app/',
@@ -198,7 +214,7 @@ export class App implements OnInit {
       description:
         'Proyecto final del curso de Desarrollo Web en Coderhouse. Sitio web responsive para Moto Center, empresa dedicada a la venta de motos y asesoramiento personalizado. Incluye estructura escalable usando SCSS, animaciones, formularios funcionales, integración de SEO y Open Graph.',
       technologies: ['HTML5', 'SCSS', 'JavaScript'],
-      image: 'motocenterfinal/motocenterPortada.png',
+      image: 'motocenterfinal/motocenterPortada.jpg',
       logo: 'motocenterfinal/motocenterLogo.png',
       videoDemo: 'https://www.youtube.com/watch?v=vKMiwK6YmE4',
       githubLink: 'https://github.com/baez-nicolas/ProyectoFinal_BaezNicolas.git',
@@ -226,7 +242,7 @@ export class App implements OnInit {
       description:
         'Aplicación web completa para administración académica con arquitectura Redux (NgRx), CRUD de Alumnos y Cursos, autenticación con roles (Admin/Usuario), gestión de sesión con expiración automática, API REST con JSON Server, testing unitario completo y Angular Material con tema claro/oscuro.',
       technologies: ['Angular', 'TypeScript', 'NgRx', 'Angular Material'],
-      image: 'focushub/focushubPortada.png',
+      image: 'angular/angularPortada.png',
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg',
       videoDemo: 'https://www.youtube.com/watch?v=_AIxtnQBjq4',
       githubLink: 'https://github.com/baez-nicolas/PF-Angular-Baez.git',
@@ -239,7 +255,7 @@ export class App implements OnInit {
       description:
         'Proyecto final de Programación 3 de la Tecnicatura Universitaria en Programación (UTN). Sistema de gestión de sucursales con arquitectura full stack, backend desarrollado en C# .NET y frontend con HTML, JavaScript y CSS.',
       technologies: ['C#', '.NET', 'HTML5', 'JavaScript', 'CSS3'],
-      image: 'focushub/focushubPortada.png',
+      image: 'csharp/portada.png',
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg',
       githubLink: 'https://github.com/baez-nicolas/Proyecto-Sucursales.git',
       featured: false,
@@ -251,7 +267,7 @@ export class App implements OnInit {
       description:
         'Proyecto de repaso para parcial de Programación 3 (UTN). Sistema de gestión de obras con arquitectura Database First, backend con C# .NET y frontend con HTML, JavaScript y CSS.',
       technologies: ['C#', '.NET', 'HTML5', 'JavaScript', 'CSS3'],
-      image: 'focushub/focushubPortada.png',
+      image: 'csharp/portada.png',
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg',
       githubLink: 'https://github.com/baez-nicolas/ObrasParcial2w2.git',
       featured: false,
@@ -263,7 +279,7 @@ export class App implements OnInit {
       description:
         'Sistema de gestión de librería con arquitectura Code First. Proyecto de repaso para parcial de Programación 3 (UTN). Backend desarrollado en C# .NET y frontend con HTML, JavaScript y CSS.',
       technologies: ['C#', '.NET', 'HTML5', 'JavaScript', 'CSS3'],
-      image: 'libraryhub/libraryhubPortada.png',
+      image: 'csharp/portada.png',
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg',
       githubLink: 'https://github.com/baez-nicolas/LibraryProject.git',
       featured: false,
