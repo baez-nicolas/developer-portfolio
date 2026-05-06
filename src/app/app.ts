@@ -171,14 +171,15 @@ export class App implements OnInit {
     },
     {
       id: 4,
-      title: 'DimensionC137',
+      title: 'Dimensión C-137',
       description:
-        'DimensionC137 es una aplicación web que te permite explorar el multiverso de Rick and Morty. Descubrí personajes, locaciones y episodios de todas las dimensiones con una interfaz moderna y responsive.',
+        'Dimensión C-137 es una aplicación web que te permite explorar el multiverso de Rick and Morty. Descubrí personajes, locaciones y episodios de todas las dimensiones con una interfaz moderna y responsive.',
       technologies: ['Angular', 'TypeScript', 'CSS3', 'Bootstrap'],
       image: 'dimensionc137/dimensionc137Portada.png',
       logo: 'dimensionc137/dimensionc137Logo.png',
+      videoDemo: 'https://www.youtube.com/watch?v=jOLFHniWK04',
       githubLink: 'https://github.com/baez-nicolas/DimensionC137.git',
-      deployLink: 'https://dimension-c137-beta.vercel.app/',
+      deployLink: 'https://dimension-c137-tan.vercel.app/',
       featured: true,
       priority: 4,
     },
