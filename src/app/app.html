@@ -18,7 +18,7 @@
             class="nav-link"
             [class.active]="activeSection() === 'home'"
             (click)="scrollToSection('home')"
-            >Inicio</a
+            >{{ t().nav.home }}</a
           >
         </li>
         <li class="nav-item">
@@ -26,7 +26,7 @@
             class="nav-link"
             [class.active]="activeSection() === 'about'"
             (click)="scrollToSection('about')"
-            >Acerca de</a
+            >{{ t().nav.about }}</a
           >
         </li>
         <li class="nav-item">
@@ -34,7 +34,7 @@
             class="nav-link"
             [class.active]="activeSection() === 'skills'"
             (click)="scrollToSection('skills')"
-            >Stack Tecnológico</a
+            >{{ t().nav.skills }}</a
           >
         </li>
         <li class="nav-item">
@@ -42,7 +42,7 @@
             class="nav-link"
             [class.active]="activeSection() === 'formacion'"
             (click)="scrollToSection('formacion')"
-            >Formación</a
+            >{{ t().nav.education }}</a
           >
         </li>
         <li class="nav-item">
@@ -50,7 +50,7 @@
             class="nav-link"
             [class.active]="activeSection() === 'projects'"
             (click)="scrollToSection('projects')"
-            >Proyectos</a
+            >{{ t().nav.projects }}</a
           >
         </li>
         <li class="nav-item">
@@ -58,8 +58,18 @@
             class="nav-link"
             [class.active]="activeSection() === 'certificates'"
             (click)="scrollToSection('certificates')"
-            >Certificados</a
+            >{{ t().nav.certificates }}</a
           >
+        </li>
+        <li class="nav-item">
+          <button
+            class="lang-toggle"
+            (click)="toggleLanguage()"
+            [title]="lang() === 'es' ? 'Switch to English' : 'Cambiar a Español'"
+          >
+            <i class="bi bi-translate"></i>
+            <span class="lang-label">{{ lang() === 'es' ? 'EN' : 'ES' }}</span>
+          </button>
         </li>
       </ul>
     </div>
@@ -78,13 +88,12 @@
       <div class="col-lg-7 col-md-6">
         <div class="hero-content">
           <h1 class="hero-title">
-            <span class="greeting">Hola, soy</span>
+            <span class="greeting">{{ t().hero.greeting }}</span>
             <span class="name">Nicolás Báez</span>
           </h1>
           <h2 class="hero-subtitle">Full Stack Developer Jr</h2>
           <p class="hero-description">
-            Angular, JavaScript | Java (Spring Boot) & C# .NET | REST APIs | SQL | Deploy: Railway,
-            Render, Vercel, GitHub Pages
+            {{ t().heroDesc }}
           </p>
           <div class="hero-buttons">
             <a
@@ -98,7 +107,7 @@
               <i class="bi bi-github"></i> GitHub
             </a>
             <a href="mailto:nicolasbaez1201@gmail.com" class="btn btn-outline-light">
-              <i class="bi bi-envelope"></i> Contacto
+              <i class="bi bi-envelope"></i> {{ t().hero.contact }}
             </a>
           </div>
         </div>
@@ -110,49 +119,31 @@
 <section id="about" class="about-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Acerca de Mí</h2>
+      <h2 class="section-title">{{ t().about.title }}</h2>
       <div class="section-divider"></div>
     </div>
 
     <div class="row">
       <div class="col-lg-8 mx-auto">
         <div class="about-content">
-          <p class="about-description">
-            Desarrollador Full Stack Jr con sólida formación académica en la
-            <strong>Universidad Tecnológica Nacional (UTN)</strong>. Especializado en arquitecturas
-            modernas web, diseño y desarrollo de aplicaciones completas desde la interfaz de usuario
-            hasta la lógica de negocio y gestión de datos.
-          </p>
-          <p class="about-description">
-            Experiencia comprobable en
-            <strong>Angular, TypeScript, Java Spring Boot y .NET</strong> con múltiples proyectos
-            desplegados en producción. Dominio de patrones de diseño, desarrollo de APIs RESTful,
-            integración con bases de datos relacionales y gestión de control de versiones.
-          </p>
-          <p class="about-description">
-            Enfocado en código limpio, buenas prácticas y metodologías ágiles. Capacidad analítica
-            para resolver problemas complejos, compromiso con la mejora continua y colaboración
-            efectiva en entornos de trabajo profesionales.
-          </p>
+          <p class="about-description" [innerHTML]="t().about.p1"></p>
+          <p class="about-description" [innerHTML]="t().about.p2"></p>
+          <p class="about-description" [innerHTML]="t().about.p3"></p>
 
           <div class="highlights mt-4">
-            <h3 class="highlights-title">Lo que aporto a tu equipo:</h3>
+            <h3 class="highlights-title">{{ t().about.highlightsTitle }}</h3>
             <ul class="highlights-list">
               <li>
-                <strong>Desarrollo Full Stack:</strong> Experiencia real construyendo aplicaciones
-                completas de principio a fin
+                <strong>{{ t().about.h1title }}</strong> {{ t().about.h1desc }}
               </li>
               <li>
-                <strong>Trabajo colaborativo:</strong> Metodologías ágiles Scrum, versionado con Git
-                y comunicación efectiva
+                <strong>{{ t().about.h2title }}</strong> {{ t().about.h2desc }}
               </li>
               <li>
-                <strong>Aprendizaje rápido:</strong> Adaptación a nuevas tecnologías y frameworks
-                según necesidades del proyecto
+                <strong>{{ t().about.h3title }}</strong> {{ t().about.h3desc }}
               </li>
               <li>
-                <strong>Profesionalismo:</strong> Responsabilidad, organización y cumplimiento de
-                plazos establecidos
+                <strong>{{ t().about.h4title }}</strong> {{ t().about.h4desc }}
               </li>
             </ul>
           </div>
@@ -166,10 +157,32 @@
         </div>
       </div>
     </div>
+    <div class="row mt-5 justify-content-center">
+      <div class="col-12 text-center mb-3">
+        <h3 class="skills-title">{{ t().presentationVideoTitle }}</h3>
+      </div>
+      <div class="presentation-video-wrapper">
+        <div class="video-container">
+          <iframe
+            [src]="presentationVideoUrl()"
+            frameborder="0"
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+            "
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
     <div class="mt-5">
       <div class="row justify-content-center" style="gap: 2rem; row-gap: 2rem">
         <div class="col-12 mb-1" style="flex: 0 0 100%; max-width: 100%">
-          <h3 id="skills" class="skills-title">Stack Tecnológico</h3>
+          <h3 id="skills" class="skills-title">{{ t().skills.title }}</h3>
         </div>
 
         <div
@@ -240,7 +253,7 @@
           "
         >
           <div class="skill-card">
-            <h4 class="skill-card-title">Bases de Datos</h4>
+            <h4 class="skill-card-title">{{ t().skills.databases }}</h4>
             <div class="skill-icons">
               @for (skill of skills.databases; track skill.name) {
                 <div class="skill-item">
@@ -276,31 +289,28 @@
     <div class="mt-5">
       <div class="row justify-content-center" style="gap: 2rem; row-gap: 2rem">
         <div class="col-12 mb-1" style="flex: 0 0 100%; max-width: 100%">
-          <h3 id="formacion" class="skills-title">Formación</h3>
+          <h3 id="formacion" class="skills-title">{{ t().education.title }}</h3>
         </div>
       </div>
     </div>
     <div class="row justify-content-center" style="gap: 2rem; margin-top: 2rem">
       <div class="col-lg-5 col-xl-5" style="flex: 0 0 45%; max-width: 45%" class="mb-4">
         <div class="info-card">
-          <h3 class="info-card-title">Formación Académica</h3>
+          <h3 class="info-card-title">{{ t().education.academicTitle }}</h3>
           <ul class="info-list">
+            @for (entry of t().educationEntries; track entry.institution + entry.degree) {
+              <li>
+                <strong>{{ entry.institution }}</strong
+                ><br />{{ entry.degree }}
+                @if (entry.location) {
+                  - {{ entry.location }}
+                }
+                <br />{{ entry.period }}
+              </li>
+            }
             <li>
-              <strong>Centro Educativo Santo Domingo</strong><br />Bachiller en Informática - Ciudad
-              de Córdoba<br />Marzo 2019 – Diciembre 2021
-            </li>
-            <li>
-              <strong>Coderhouse</strong><br />Carrera Frontend (Angular)<br />Abril 2025 –
-              Noviembre 2025
-            </li>
-            <li>
-              <strong>Universidad Tecnológica Nacional (UTN)</strong><br />Tecnicatura Universitaria
-              en Programación<br />Marzo 2022 – Diciembre 2025
-            </li>
-            <li><strong>Coderhouse</strong><br />Carrera Backend<br />Febrero 2026 – En curso</li>
-            <li>
-              <strong>Desarrollo Continuo</strong><br />Actualización constante en tecnologías y
-              mejores prácticas
+              <strong>{{ t().education.continuousDev }}</strong
+              ><br />{{ t().education.continuousDevDesc }}
             </li>
           </ul>
         </div>
@@ -308,21 +318,11 @@
 
       <div class="col-lg-5 col-xl-5" style="flex: 0 0 45%; max-width: 45%" class="mb-4">
         <div class="info-card">
-          <h3 class="info-card-title">Perfil Profesional</h3>
-          <p class="info-text">
-            Desarrollador orientado a resultados, buscando incorporarse a equipos que valoren la
-            calidad del código, el crecimiento profesional y el impacto real en productos
-            tecnológicos. Disponibilidad <strong>Full Time</strong>
-            para proyectos desafiantes que impulsen mi carrera en la industria del desarrollo de
-            software.
-          </p>
-          <p class="info-text">
-            Abierto a aprender nuevos lenguajes, frameworks y tecnologías según las necesidades del
-            proyecto. Mi capacidad de adaptación y pasión por el aprendizaje continuo me permiten
-            integrarme rápidamente a diferentes stacks tecnológicos.
-          </p>
+          <h3 class="info-card-title">{{ t().education.profileTitle }}</h3>
+          <p class="info-text" [innerHTML]="t().education.profile1"></p>
+          <p class="info-text" [innerHTML]="t().education.profile2"></p>
           <div class="contact-info">
-            <p><i class="bi bi-geo-alt-fill"></i> Córdoba, Argentina</p>
+            <p><i class="bi bi-geo-alt-fill"></i> {{ t().location }}</p>
             <p><i class="bi bi-envelope-fill"></i> nicolasbaez1201@gmail.com</p>
           </div>
         </div>
@@ -331,7 +331,7 @@
     <div class="mt-5">
       <div class="row justify-content-center" style="gap: 2rem; row-gap: 2rem">
         <div class="col-12 mb-1" style="flex: 0 0 100%; max-width: 100%">
-          <h3 id="projects" class="skills-title">Mis Proyectos</h3>
+          <h3 id="projects" class="skills-title">{{ t().projects.title }}</h3>
         </div>
       </div>
     </div>
@@ -341,18 +341,20 @@
           <div class="banner-icon">
             <img [src]="project.logo" [alt]="project.title" />
             @if (project.featured) {
-              <span class="special-badge">Destacado</span>
+              <span class="special-badge">{{ t().projects.featured }}</span>
             }
           </div>
           <div class="banner-info">
-            <h4 class="banner-title">{{ project.title }}</h4>
+            <h4 class="banner-title">
+              {{ lang() === 'en' && project.titleEn ? project.titleEn : project.title }}
+            </h4>
             <div class="banner-status">
               @if (project.deployLink) {
                 <i class="bi bi-check-circle-fill"></i>
-                <span>En vivo</span>
+                <span>{{ t().projects.live }}</span>
               } @else {
                 <i class="bi bi-code-slash"></i>
-                <span>Solo código</span>
+                <span>{{ t().projects.codeOnly }}</span>
               }
             </div>
           </div>
@@ -362,7 +364,7 @@
     <div class="mt-5">
       <div class="row justify-content-center" style="gap: 2rem; row-gap: 2rem">
         <div class="col-12 mb-1" style="flex: 0 0 100%; max-width: 100%">
-          <h3 id="certificates" class="skills-title">Certificados</h3>
+          <h3 id="certificates" class="skills-title">{{ t().certificates.title }}</h3>
         </div>
       </div>
     </div>
@@ -381,20 +383,32 @@
               <img [src]="certificate.image" [alt]="certificate.title" />
             </div>
             <div class="certificate-content">
-              <h3 class="certificate-title">{{ certificate.title }}</h3>
+              <h3 class="certificate-title">
+                {{
+                  lang() === 'en' && certificate.titleEn ? certificate.titleEn : certificate.title
+                }}
+              </h3>
               <p class="certificate-institution">
                 <i class="bi bi-award"></i> {{ certificate.institution }}
               </p>
-              <p class="certificate-date"><i class="bi bi-calendar"></i> {{ certificate.date }}</p>
+              <p class="certificate-date">
+                <i class="bi bi-calendar"></i>
+                {{ lang() === 'en' && certificate.dateEn ? certificate.dateEn : certificate.date }}
+              </p>
               <div class="certificate-action">
                 @if (certificate.status) {
                   <div class="certificate-status">
-                    <i class="bi bi-hourglass-split"></i> {{ certificate.status }}
+                    <i class="bi bi-hourglass-split"></i>
+                    {{
+                      lang() === 'en' && certificate.statusEn
+                        ? certificate.statusEn
+                        : certificate.status
+                    }}
                   </div>
                 }
                 @if (certificate.verifyLink) {
                   <a [href]="certificate.verifyLink" target="_blank" class="btn-verify">
-                    <i class="bi bi-patch-check"></i> Ver Certificado
+                    <i class="bi bi-patch-check"></i> {{ t().certificates.verify }}
                   </a>
                 }
               </div>
@@ -410,7 +424,7 @@
   <div class="container">
     <div class="footer-content">
       <p class="footer-title">
-        Desarrollado con <i class="bi bi-heart-fill"></i> por
+        {{ t().footer.developed }} <i class="bi bi-heart-fill"></i> {{ t().footer.by }}
         <a href="https://github.com/baez-nicolas" target="_blank" class="footer-name"
           >Nicolás Báez</a
         >
@@ -438,7 +452,7 @@
         </a>
       </div>
 
-      <p class="footer-copyright">Fines educativos © 2026</p>
+      <p class="footer-copyright">{{ t().footer.educational }} © 2026</p>
     </div>
   </div>
 </footer>
@@ -457,15 +471,25 @@
             <img [src]="selectedProject()!.logo" [alt]="selectedProject()!.title" />
           </div>
           <div>
-            <h2 class="modal-title">{{ selectedProject()!.title }}</h2>
+            <h2 class="modal-title">
+              {{
+                lang() === 'en' && selectedProject()!.titleEn
+                  ? selectedProject()!.titleEn
+                  : selectedProject()!.title
+              }}
+            </h2>
             <div class="modal-badges">
               @if (selectedProject()!.featured) {
-                <span class="badge-featured">Destacado</span>
+                <span class="badge-featured">{{ t().projects.featured }}</span>
               }
               @if (selectedProject()!.deployLink) {
-                <span class="badge-deploy"> <i class="bi bi-check-circle-fill"></i> En vivo </span>
+                <span class="badge-deploy">
+                  <i class="bi bi-check-circle-fill"></i> {{ t().projects.live }}
+                </span>
               } @else {
-                <span class="badge-code"> <i class="bi bi-code-slash"></i> Solo código </span>
+                <span class="badge-code">
+                  <i class="bi bi-code-slash"></i> {{ t().projects.codeOnly }}
+                </span>
               }
             </div>
           </div>
@@ -485,10 +509,18 @@
           </div>
 
           <div class="col-lg-6">
-            <h3 class="modal-section-title">Descripción del Proyecto</h3>
-            <p class="modal-description">{{ selectedProject()!.description }}</p>
+            <h3 class="modal-section-title">{{ t().projects.modalDescription }}</h3>
+            <p class="modal-description">
+              {{
+                lang() === 'en' && selectedProject()!.descriptionEn
+                  ? selectedProject()!.descriptionEn
+                  : selectedProject()!.description
+              }}
+            </p>
 
-            <h3 class="modal-section-title" style="margin-top: 2rem">Tecnologías Utilizadas</h3>
+            <h3 class="modal-section-title" style="margin-top: 2rem">
+              {{ t().projects.modalTech }}
+            </h3>
             <div class="modal-tech">
               @for (tech of selectedProject()!.technologies; track tech) {
                 <span class="tech-badge-large">{{ tech }}</span>
@@ -498,11 +530,11 @@
             <div class="modal-links">
               @if (selectedProject()!.deployLink) {
                 <a [href]="selectedProject()!.deployLink" target="_blank" class="btn-demo">
-                  <i class="bi bi-box-arrow-up-right"></i> Ver Demo en Vivo
+                  <i class="bi bi-box-arrow-up-right"></i> {{ t().projects.modalLiveDemo }}
                 </a>
               }
               <a [href]="selectedProject()!.githubLink" target="_blank" class="btn-github">
-                <i class="bi bi-github"></i> Ver Código Fuente
+                <i class="bi bi-github"></i> {{ t().projects.modalSourceCode }}
               </a>
             </div>
           </div>
@@ -510,12 +542,12 @@
 
         @if (selectedProject()!.videoDemo || selectedProject()!.videoMarketing) {
           <div style="margin-top: 2.5rem">
-            <h3 class="modal-section-title">Videos del Proyecto</h3>
+            <h3 class="modal-section-title">{{ t().projects.modalVideos }}</h3>
 
             <div class="videos-grid">
               @if (selectedProject()!.videoDemo) {
                 <div class="video-item">
-                  <h4 class="video-label">Demostración</h4>
+                  <h4 class="video-label">{{ t().projects.modalDemo }}</h4>
                   <div class="video-container">
                     <iframe
                       [src]="videoDemoUrl()"
@@ -537,7 +569,7 @@
 
               @if (selectedProject()!.videoMarketing) {
                 <div class="video-item">
-                  <h4 class="video-label">Presentación</h4>
+                  <h4 class="video-label">{{ t().projects.modalPresentation }}</h4>
                   <div class="video-container">
                     <iframe
                       [src]="videoMarketingUrl()"
@@ -577,23 +609,39 @@
       </div>
 
       <div class="certificate-modal-info">
-        <h2 class="certificate-modal-title">{{ selectedCertificate()!.title }}</h2>
+        <h2 class="certificate-modal-title">
+          {{
+            lang() === 'en' && selectedCertificate()!.titleEn
+              ? selectedCertificate()!.titleEn
+              : selectedCertificate()!.title
+          }}
+        </h2>
         <p class="certificate-modal-institution">
           <i class="bi bi-award"></i> {{ selectedCertificate()!.institution }}
         </p>
         <p class="certificate-modal-date">
-          <i class="bi bi-calendar"></i> {{ selectedCertificate()!.date }}
+          <i class="bi bi-calendar"></i>
+          {{
+            lang() === 'en' && selectedCertificate()!.dateEn
+              ? selectedCertificate()!.dateEn
+              : selectedCertificate()!.date
+          }}
         </p>
 
         @if (selectedCertificate()!.status) {
           <div class="certificate-status-large">
-            <i class="bi bi-hourglass-split"></i> {{ selectedCertificate()!.status }}
+            <i class="bi bi-hourglass-split"></i>
+            {{
+              lang() === 'en' && selectedCertificate()!.statusEn
+                ? selectedCertificate()!.statusEn
+                : selectedCertificate()!.status
+            }}
           </div>
         }
 
         @if (selectedCertificate()!.verifyLink) {
           <a [href]="selectedCertificate()!.verifyLink" target="_blank" class="btn-verify-large">
-            <i class="bi bi-patch-check"></i> Ver Certificado
+            <i class="bi bi-patch-check"></i> {{ t().certificates.verify }}
           </a>
         }
       </div>
