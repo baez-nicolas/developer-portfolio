@@ -374,9 +374,9 @@ export class App implements OnInit {
       id: 2,
       title: 'ZeroPoint',
       description:
-        'ZeroPoint es una aplicación web moderna que te permite explorar todo el universo de Fortnite. Desde la tienda diaria hasta el mapa de Battle Royale, accedé a información actualizada de cosméticos, playlists, noticias y más con una interfaz responsive y optimizada.',
+        'ZeroPoint es una aplicación web moderna que te permite explorar todo el universo de Fortnite. Desde la tienda diaria hasta el mapa de Battle Royale, accedé a información actualizada de cosméticos, playlists y noticias. Consume la Fortnite API oficial para traer datos en tiempo real.',
       descriptionEn:
-        'ZeroPoint is a modern web app that lets you explore the entire Fortnite universe. From the daily item shop to the Battle Royale map — access up-to-date info on cosmetics, playlists, news and more with a responsive, optimized interface.',
+        'ZeroPoint is a modern web app that lets you explore the entire Fortnite universe. From the daily item shop to the Battle Royale map — access up-to-date info on cosmetics, playlists and news. Powered by the official Fortnite API for real-time data.',
       technologies: ['Angular', 'TypeScript', 'SCSS', 'Bootstrap', 'Vercel'],
       image: 'zeropoint/zeroPointPortada.png',
       logo: 'zeropoint/fortniteLogo.png',
@@ -405,9 +405,9 @@ export class App implements OnInit {
       title: 'Dimensión C-137',
       titleEn: 'Dimension C-137',
       description:
-        'Dimensión C-137 es una aplicación web que te permite explorar el multiverso de Rick and Morty. Descubrí personajes, locaciones y episodios de todas las dimensiones con una interfaz moderna y responsive.',
+        'Dimensión C-137 es una aplicación web que te permite explorar el multiverso de Rick and Morty. Descubrí personajes, locaciones y episodios de todas las dimensiones con una interfaz moderna y responsive. Consume la Rick and Morty API oficial para traer datos en tiempo real.',
       descriptionEn:
-        'Dimension C-137 is a web app that lets you explore the Rick and Morty multiverse. Discover characters, locations and episodes from every dimension with a modern, responsive interface.',
+        'Dimension C-137 is a web app that lets you explore the Rick and Morty multiverse. Discover characters, locations and episodes from every dimension with a modern, responsive interface. Powered by the official Rick and Morty API for real-time data.',
       technologies: ['Angular', 'TypeScript', 'CSS3', 'Bootstrap', 'Vercel'],
       image: 'dimensionc137/dimensionc137Portada.png',
       logo: 'dimensionc137/dimensionc137Logo.png',
@@ -443,6 +443,7 @@ export class App implements OnInit {
       technologies: ['JavaScript', 'HTML5', 'CSS3', 'Bootstrap', 'Vercel'],
       image: 'libraryhub/libraryHubPortada.png',
       logo: 'libraryhub/libraryHubLogo.png',
+      videoDemo: 'https://www.youtube.com/watch?v=S0V3R4NBnFA',
       githubLink: 'https://github.com/baez-nicolas/LibraryHub.git',
       deployLink: 'https://library-hub-phi.vercel.app/',
       featured: false,
