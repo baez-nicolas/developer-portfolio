@@ -446,7 +446,7 @@ export class App implements OnInit {
       videoDemo: 'https://www.youtube.com/watch?v=S0V3R4NBnFA',
       githubLink: 'https://github.com/baez-nicolas/LibraryHub.git',
       deployLink: 'https://library-hub-phi.vercel.app/',
-      featured: false,
+      featured: true,
       priority: 6,
     },
     {
