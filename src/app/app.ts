@@ -15,6 +15,7 @@ const translations = {
     hero: {
       greeting: 'Hola, soy',
       contact: 'Contacto',
+      downloadCV: 'Descargar CV',
     },
     about: {
       title: 'Acerca de Mí',
@@ -113,6 +114,7 @@ const translations = {
     hero: {
       greeting: "Hi, I'm",
       contact: 'Contact',
+      downloadCV: 'Download CV',
     },
     about: {
       title: 'About Me',
@@ -250,6 +252,51 @@ export class App implements OnInit {
     localStorage.setItem('lang', next);
   }
 
+  protected heroTypedLines = signal<string[]>(['', '', '', '']);
+  protected heroCurrentLine = signal(0);
+  protected showCursor = signal(true);
+  private typingIntervalId: ReturnType<typeof setInterval> | null = null;
+  private cursorIntervalId: ReturnType<typeof setInterval> | null = null;
+
+  private startTypingAnimation(): void {
+    if (this.typingIntervalId) clearInterval(this.typingIntervalId);
+    if (this.cursorIntervalId) clearInterval(this.cursorIntervalId);
+
+    const t = this.t();
+    const lines = [t.hero.greeting, 'Nicolás Báez', 'Full Stack Developer Jr', t.heroDesc];
+
+    this.heroTypedLines.set(['', '', '', '']);
+    this.heroCurrentLine.set(0);
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    this.typingIntervalId = setInterval(() => {
+      if (lineIndex >= lines.length) {
+        clearInterval(this.typingIntervalId!);
+        this.typingIntervalId = null;
+        this.heroCurrentLine.set(-1);
+        return;
+      }
+
+      const currentLine = lines[lineIndex];
+      if (charIndex < currentLine.length) {
+        const newLines = [...this.heroTypedLines()];
+        newLines[lineIndex] = currentLine.slice(0, charIndex + 1);
+        this.heroTypedLines.set(newLines);
+        charIndex++;
+      } else {
+        lineIndex++;
+        charIndex = 0;
+        this.heroCurrentLine.set(lineIndex);
+      }
+    }, 18);
+
+    this.cursorIntervalId = setInterval(() => {
+      this.showCursor.set(!this.showCursor());
+    }, 530);
+  }
+
   protected selectedProject = signal<Project | null>(null);
   protected selectedCertificate = signal<Certificate | null>(null);
 
@@ -301,6 +348,7 @@ export class App implements OnInit {
     }
 
     window.addEventListener('scroll', this.handleScroll);
+    this.startTypingAnimation();
   }
 
   private handleScroll = () => {
@@ -372,6 +420,29 @@ export class App implements OnInit {
     },
     {
       id: 2,
+      title: 'SyncMarket',
+      description:
+        'SyncMarket es una plataforma de e-commerce fullstack moderna con autenticación JWT, roles de usuario, gestión de tiendas, productos, órdenes, reseñas, wallet y mensajería interna. Diseñada con una arquitectura robusta de Spring Boot + Angular y desplegada en la nube.',
+      descriptionEn:
+        'SyncMarket is a modern fullstack e-commerce platform with JWT authentication, user roles, store and product management, orders, reviews, wallet and internal messaging. Built with a robust Spring Boot + Angular architecture and deployed to the cloud.',
+      technologies: [
+        'Angular',
+        'TypeScript',
+        'Java',
+        'Spring Boot',
+        'Neon',
+        'Cloudinary',
+        'Render',
+      ],
+      image: 'syncmarket/syncMarketPortada.png',
+      logo: 'syncmarket/syncMarketLogo.png',
+      githubLink: 'https://github.com/baez-nicolas/syncmarket.git',
+      deployLink: 'https://syncmarket.onrender.com/',
+      featured: true,
+      priority: 2,
+    },
+    {
+      id: 3,
       title: 'ZeroPoint',
       description:
         'ZeroPoint es una aplicación web moderna que te permite explorar todo el universo de Fortnite. Desde la tienda diaria hasta el mapa de Battle Royale, accedé a información actualizada de cosméticos, playlists y noticias. Consume la Fortnite API oficial para traer datos en tiempo real.',
@@ -383,20 +454,6 @@ export class App implements OnInit {
       videoDemo: 'https://www.youtube.com/watch?v=eULG09u-aXQ',
       githubLink: 'https://github.com/baez-nicolas/ZeroPoint.git',
       deployLink: 'https://zero-point-neon.vercel.app/',
-      featured: true,
-      priority: 2,
-    },
-    {
-      id: 3,
-      title: 'SyncMarket',
-      description:
-        'Sistema de gestión de marketplace con arquitectura full stack. Backend con Java Spring Boot y frontend con Angular. (Proyecto en desarrollo)',
-      descriptionEn:
-        'Marketplace management system with a full-stack architecture. Java Spring Boot backend and Angular frontend. (Work in progress)',
-      technologies: ['Angular', 'Java', 'Spring Boot', 'TypeScript'],
-      image: 'syncmarket/syncMarketPortada.png',
-      logo: 'syncmarket/syncMarketLogo.png',
-      githubLink: 'https://github.com/baez-nicolas/syncmarket.git',
       featured: true,
       priority: 3,
     },

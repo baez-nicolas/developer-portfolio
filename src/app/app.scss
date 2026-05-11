@@ -234,10 +234,28 @@ body {
       line-height: 1.8;
     }
 
+    .typing-cursor {
+      display: inline-block;
+      color: $primary-color;
+      font-weight: 400;
+      margin-left: 1px;
+      opacity: 0;
+      transition: opacity 0.1s;
+
+      &.visible {
+        opacity: 1;
+      }
+    }
+
     .hero-buttons {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
+
+      .hero-btn-animate {
+        opacity: 0;
+        animation: heroBtnAppear 0.5s ease forwards;
+      }
 
       .btn {
         padding: 0.75rem 1.5rem;
@@ -268,6 +286,19 @@ body {
             background: rgba(255, 255, 255, 0.1);
             border-color: $primary-color;
             transform: translateY(-3px);
+          }
+        }
+
+        &.btn-cv {
+          background: transparent;
+          border: 2px solid $primary-color;
+          color: $primary-color;
+
+          &:hover {
+            background: $primary-color;
+            color: $dark-bg;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.35);
           }
         }
       }
@@ -1398,6 +1429,17 @@ body {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes heroBtnAppear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
