@@ -252,6 +252,7 @@ export class App implements OnInit {
     const next = this.lang() === 'es' ? 'en' : 'es';
     this.lang.set(next);
     localStorage.setItem('lang', next);
+    this.startTypingAnimation();
   }
 
   protected heroTypedLines = signal<string[]>(['', '', '', '']);
