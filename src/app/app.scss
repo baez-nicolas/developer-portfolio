@@ -2087,64 +2087,61 @@ body {
     }
   }
 
-  .projects-grid {
-    display: flex !important;
-    flex-direction: row !important;
-    overflow-x: auto !important;
-    gap: 0.65rem !important;
-    padding-bottom: 0.5rem !important;
-    scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important;
-    grid-template-columns: none !important;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    .project-banner {
-      flex: 0 0 120px !important;
-      width: 120px !important;
-      min-width: 120px !important;
-      height: auto !important;
-      scroll-snap-align: start;
-      border-radius: 12px;
-
-      .banner-icon {
-        height: 120px !important;
-        width: 120px !important;
-
-        img {
-          width: 60px !important;
-          height: 60px !important;
-        }
-      }
-
-      .banner-info {
-        padding: 0.4rem 0.5rem !important;
-        gap: 0.2rem !important;
-
-        .banner-title {
-          font-size: 0.68rem !important;
-          line-height: 1.25 !important;
-          display: -webkit-box !important;
-          -webkit-line-clamp: 2 !important;
-          -webkit-box-orient: vertical !important;
-          overflow: hidden !important;
-        }
-
-        .banner-status {
-          font-size: 0.6rem !important;
-        }
-      }
-    }
-  }
-
   .scroll-carousel-wrap {
     position: relative;
     margin-top: 1rem;
 
     .projects-grid {
+      display: flex !important;
+      flex-direction: row !important;
+      overflow-x: auto !important;
+      gap: 0.65rem !important;
+      padding-bottom: 0.5rem !important;
+      scroll-snap-type: x mandatory !important;
+      -webkit-overflow-scrolling: touch !important;
+      grid-template-columns: none !important;
       margin-top: 0 !important;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .project-banner {
+        flex: 0 0 120px !important;
+        width: 120px !important;
+        min-width: 120px !important;
+        height: auto !important;
+        scroll-snap-align: start;
+        border-radius: 12px;
+
+        .banner-icon {
+          height: 120px !important;
+          width: 120px !important;
+
+          img {
+            width: 60px !important;
+            height: 60px !important;
+          }
+        }
+
+        .banner-info {
+          padding: 0.4rem 0.5rem !important;
+          gap: 0.2rem !important;
+
+          .banner-title {
+            font-size: 0.68rem !important;
+            line-height: 1.25 !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+          }
+
+          .banner-status {
+            font-size: 0.6rem !important;
+          }
+        }
+      }
     }
   }
 
