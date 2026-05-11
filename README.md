@@ -87,6 +87,7 @@
 ## 📬 Contacto
 
 | | |
+| --- | --- |
 | **Email** | nicolasbaez1201@gmail.com |
 | **LinkedIn** | [linkedin.com/in/baez-nicolas](https://www.linkedin.com/in/baez-nicolas/) |
 | **GitHub** | [github.com/baez-nicolas](https://github.com/baez-nicolas) |
