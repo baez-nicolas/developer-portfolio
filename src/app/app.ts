@@ -207,6 +207,8 @@ interface Project {
   id: number;
   title: string;
   titleEn?: string;
+  titleMobile?: string;
+  titleMobileEn?: string;
   description: string;
   descriptionEn?: string;
   technologies: string[];
@@ -255,6 +257,7 @@ export class App implements OnInit {
   protected heroTypedLines = signal<string[]>(['', '', '', '']);
   protected heroCurrentLine = signal(0);
   protected showCursor = signal(true);
+  protected buttonsReady = signal(false);
   private typingIntervalId: ReturnType<typeof setInterval> | null = null;
   private cursorIntervalId: ReturnType<typeof setInterval> | null = null;
 
@@ -267,6 +270,7 @@ export class App implements OnInit {
 
     this.heroTypedLines.set(['', '', '', '']);
     this.heroCurrentLine.set(0);
+    this.buttonsReady.set(false);
 
     let lineIndex = 0;
     let charIndex = 0;
@@ -276,6 +280,7 @@ export class App implements OnInit {
         clearInterval(this.typingIntervalId!);
         this.typingIntervalId = null;
         this.heroCurrentLine.set(-1);
+        this.buttonsReady.set(true);
         return;
       }
 
@@ -323,7 +328,30 @@ export class App implements OnInit {
   protected showScrollButton = signal(false);
   protected scrollDirection = signal<'up' | 'down'>('up');
   protected activeSection = signal('home');
+  protected navOpen = signal(false);
+  protected projectsScrollPct = signal(0);
+  protected certsScrollPct = signal(0);
   private lastScrollTop = 0;
+
+  toggleNav(): void {
+    this.navOpen.set(!this.navOpen());
+  }
+
+  closeNav(): void {
+    this.navOpen.set(false);
+  }
+
+  protected onProjectsScroll(event: Event): void {
+    const el = event.target as HTMLElement;
+    const max = el.scrollWidth - el.clientWidth;
+    this.projectsScrollPct.set(max > 0 ? el.scrollLeft / max : 0);
+  }
+
+  protected onCertsScroll(event: Event): void {
+    const el = event.target as HTMLElement;
+    const max = el.scrollWidth - el.clientWidth;
+    this.certsScrollPct.set(max > 0 ? el.scrollLeft / max : 0);
+  }
 
   private preventScroll = (e: Event) => {
     const target = e.target as HTMLElement;
@@ -525,6 +553,7 @@ export class App implements OnInit {
     {
       id: 8,
       title: 'My Hero Academia Web',
+      titleMobile: 'MHA Web',
       description:
         'My Hero Academia Web es un sitio web dedicado al universo de Boku no Hero Academia. Explorá información sobre héroes, villanos, quirks y arcos de la historia con un diseño moderno y responsive inspirado en la serie.',
       descriptionEn:
@@ -541,6 +570,8 @@ export class App implements OnInit {
     {
       id: 9,
       title: 'Sistema de Gestión Educativa',
+      titleMobile: 'Gestión Educativa',
+      titleMobileEn: 'Academic Mgmt',
       titleEn: 'Academic Management System',
       descriptionEn:
         'Complete academic management web app with Redux (NgRx) architecture, Students & Courses CRUD, role-based authentication (Admin/User), session management with auto-expiry, REST API with JSON Server, full unit testing and Angular Material with light/dark theme.',
@@ -557,6 +588,8 @@ export class App implements OnInit {
     {
       id: 10,
       title: 'Proyecto Sucursales',
+      titleMobile: 'Sucursales',
+      titleMobileEn: 'Branches',
       titleEn: 'Branch Management Project',
       description:
         'Proyecto final de Programación 3 de la Tecnicatura Universitaria en Programación (UTN). Sistema de gestión de sucursales con arquitectura full stack, backend desarrollado en C# .NET y frontend con HTML, JavaScript y CSS.',
@@ -752,6 +785,47 @@ export class App implements OnInit {
     window.removeEventListener('wheel', this.preventScroll);
     window.removeEventListener('touchmove', this.preventScroll);
     window.removeEventListener('keydown', this.preventScrollKeys);
+  }
+
+  protected mobileEduModal = signal<'academic' | 'profile' | null>(null);
+
+  protected aboutOpenSections = signal<string[]>([]);
+
+  toggleAboutSection(id: string): void {
+    const current = this.aboutOpenSections();
+    if (current.includes(id)) {
+      this.aboutOpenSections.set(current.filter((s) => s !== id));
+    } else {
+      this.aboutOpenSections.set([...current, id]);
+    }
+  }
+
+  isAboutOpen(id: string): boolean {
+    return this.aboutOpenSections().includes(id);
+  }
+
+  openEduModal(type: 'academic' | 'profile'): void {
+    this.mobileEduModal.set(type);
+    document.body.classList.add('modal-open');
+  }
+
+  closeEduModal(): void {
+    this.mobileEduModal.set(null);
+    document.body.classList.remove('modal-open');
+  }
+
+  protected mobileSkillModal = signal<
+    'frontend' | 'backend' | 'devops' | 'databases' | 'deployment' | null
+  >(null);
+
+  openSkillModal(type: 'frontend' | 'backend' | 'devops' | 'databases' | 'deployment'): void {
+    this.mobileSkillModal.set(type);
+    document.body.classList.add('modal-open');
+  }
+
+  closeSkillModal(): void {
+    this.mobileSkillModal.set(null);
+    document.body.classList.remove('modal-open');
   }
 
   private preventScrollKeys = (e: KeyboardEvent) => {

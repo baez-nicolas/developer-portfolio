@@ -1,18 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+﻿<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand d-none d-lg-block" href="#">
       <span class="brand-first">NICOLÁS</span> <span class="brand-last">BÁEZ</span>
     </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+
+    <div class="d-none d-lg-flex ms-auto align-items-center">
+      <ul class="navbar-nav">
         <li class="nav-item">
           <a
             class="nav-link"
@@ -61,20 +54,91 @@
             >{{ t().nav.certificates }}</a
           >
         </li>
-        <li class="nav-item">
-          <button
-            class="lang-toggle"
-            (click)="toggleLanguage()"
-            [title]="lang() === 'es' ? 'Switch to English' : 'Cambiar a Español'"
-          >
-            <i class="bi bi-translate"></i>
-            <span class="lang-label">{{ lang() === 'es' ? 'EN' : 'ES' }}</span>
-          </button>
-        </li>
       </ul>
+      <button
+        class="lang-toggle ms-2"
+        (click)="toggleLanguage()"
+        [title]="lang() === 'es' ? 'Switch to English' : 'Cambiar a Español'"
+      >
+        <i class="bi bi-translate"></i>
+        <span class="lang-label">{{ lang() === 'es' ? 'EN' : 'ES' }}</span>
+      </button>
+    </div>
+
+    <div class="navbar-mobile-row d-flex d-lg-none w-100 align-items-center">
+      <button class="navbar-toggler navbar-toggler-mobile" type="button" (click)="toggleNav()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand navbar-brand-mobile" href="#">
+        <span class="brand-first">NICOLÁS</span> <span class="brand-last">BÁEZ</span>
+      </a>
+      <button
+        class="lang-toggle lang-toggle-mobile"
+        (click)="toggleLanguage()"
+        [title]="lang() === 'es' ? 'Switch to English' : 'Cambiar a Espa\u00f1ol'"
+      >
+        <i class="bi bi-translate"></i>
+        <span class="lang-label">{{ lang() === 'es' ? 'EN' : 'ES' }}</span>
+      </button>
     </div>
   </div>
 </nav>
+
+@if (navOpen()) {
+  <div class="mobile-drawer-backdrop" (click)="closeNav()"></div>
+  <div class="mobile-drawer">
+    <div class="drawer-header">
+      <span class="drawer-brand"
+        ><span class="brand-first">NICOLÁS</span> <span class="brand-last">BÁEZ</span></span
+      >
+      <button class="drawer-close" (click)="closeNav()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <nav class="drawer-nav">
+      <a
+        class="drawer-link"
+        [class.active]="activeSection() === 'home'"
+        (click)="scrollToSection('home'); closeNav()"
+      >
+        <i class="bi bi-house-fill"></i> {{ t().nav.home }}
+      </a>
+      <a
+        class="drawer-link"
+        [class.active]="activeSection() === 'about'"
+        (click)="scrollToSection('about'); closeNav()"
+      >
+        <i class="bi bi-person-fill"></i> {{ t().nav.about }}
+      </a>
+      <a
+        class="drawer-link"
+        [class.active]="activeSection() === 'skills'"
+        (click)="scrollToSection('skills'); closeNav()"
+      >
+        <i class="bi bi-code-slash"></i> {{ t().nav.skills }}
+      </a>
+      <a
+        class="drawer-link"
+        [class.active]="activeSection() === 'formacion'"
+        (click)="scrollToSection('formacion'); closeNav()"
+      >
+        <i class="bi bi-mortarboard-fill"></i> {{ t().nav.education }}
+      </a>
+      <a
+        class="drawer-link"
+        [class.active]="activeSection() === 'projects'"
+        (click)="scrollToSection('projects'); closeNav()"
+      >
+        <i class="bi bi-grid-fill"></i> {{ t().nav.projects }}
+      </a>
+      <a
+        class="drawer-link"
+        [class.active]="activeSection() === 'certificates'"
+        (click)="scrollToSection('certificates'); closeNav()"
+      >
+        <i class="bi bi-patch-check-fill"></i> {{ t().nav.certificates }}
+      </a>
+    </nav>
+  </div>
+}
 
 <section id="home" class="hero-section">
   <div class="hero-overlay"></div>
@@ -117,7 +181,7 @@
               >|</span
             >
           </p>
-          <div class="hero-buttons">
+          <div class="hero-buttons" [class.btns-ready]="buttonsReady()">
             <a
               href="https://www.linkedin.com/in/baez-nicolas/"
               target="_blank"
@@ -163,15 +227,97 @@
       <div class="section-divider"></div>
     </div>
 
-    <div class="row">
-      <div class="col-lg-8 mx-auto">
-        <div class="about-content">
-          <p class="about-description" [innerHTML]="t().about.p1"></p>
-          <p class="about-description" [innerHTML]="t().about.p2"></p>
-          <p class="about-description" [innerHTML]="t().about.p3"></p>
+    <div class="d-none d-lg-block">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="about-content">
+            <p class="about-description" [innerHTML]="t().about.p1"></p>
+            <p class="about-description" [innerHTML]="t().about.p2"></p>
+            <p class="about-description" [innerHTML]="t().about.p3"></p>
 
-          <div class="highlights mt-4">
-            <h3 class="highlights-title">{{ t().about.highlightsTitle }}</h3>
+            <div class="highlights mt-4">
+              <h3 class="highlights-title">{{ t().about.highlightsTitle }}</h3>
+              <ul class="highlights-list">
+                <li>
+                  <strong>{{ t().about.h1title }}</strong> {{ t().about.h1desc }}
+                </li>
+                <li>
+                  <strong>{{ t().about.h2title }}</strong> {{ t().about.h2desc }}
+                </li>
+                <li>
+                  <strong>{{ t().about.h3title }}</strong> {{ t().about.h3desc }}
+                </li>
+                <li>
+                  <strong>{{ t().about.h4title }}</strong> {{ t().about.h4desc }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          <div class="developer-photo-container">
+            <img src="perfil/nicobaez2.jpeg" alt="Nicolás Báez" class="developer-photo" />
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5 justify-content-center">
+        <div class="col-12 text-center mb-3">
+          <h3 class="skills-title">{{ t().presentationVideoTitle }}</h3>
+        </div>
+        <div class="presentation-video-wrapper">
+          <div class="video-container">
+            <iframe
+              [src]="presentationVideoUrl()"
+              frameborder="0"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+              "
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-lg-none about-accordion">
+      <div class="acc-item" [class.open]="isAboutOpen('bio')">
+        <button class="acc-header" (click)="toggleAboutSection('bio')">
+          <span class="acc-icon"><i class="bi bi-person-lines-fill"></i></span>
+          <span class="acc-title">{{ t().about.title }}</span>
+          <i
+            class="bi acc-chevron"
+            [class.bi-chevron-down]="!isAboutOpen('bio')"
+            [class.bi-chevron-up]="isAboutOpen('bio')"
+          ></i>
+        </button>
+        @if (isAboutOpen('bio')) {
+          <div class="acc-body">
+            <p class="about-description" [innerHTML]="t().about.p1"></p>
+            <p class="about-description" [innerHTML]="t().about.p2"></p>
+            <p class="about-description" [innerHTML]="t().about.p3"></p>
+          </div>
+        }
+      </div>
+
+      <div class="acc-item" [class.open]="isAboutOpen('highlights')">
+        <button class="acc-header" (click)="toggleAboutSection('highlights')">
+          <span class="acc-icon"><i class="bi bi-star-fill"></i></span>
+          <span class="acc-title">{{ t().about.highlightsTitle }}</span>
+          <i
+            class="bi acc-chevron"
+            [class.bi-chevron-down]="!isAboutOpen('highlights')"
+            [class.bi-chevron-up]="isAboutOpen('highlights')"
+          ></i>
+        </button>
+        @if (isAboutOpen('highlights')) {
+          <div class="acc-body">
             <ul class="highlights-list">
               <li>
                 <strong>{{ t().about.h1title }}</strong> {{ t().about.h1desc }}
@@ -187,52 +333,49 @@
               </li>
             </ul>
           </div>
-        </div>
+        }
+      </div>
+
+      <div class="acc-item" [class.open]="isAboutOpen('video')">
+        <button class="acc-header" (click)="toggleAboutSection('video')">
+          <span class="acc-icon"><i class="bi bi-play-circle-fill"></i></span>
+          <span class="acc-title">{{ t().presentationVideoTitle }}</span>
+          <i
+            class="bi acc-chevron"
+            [class.bi-chevron-down]="!isAboutOpen('video')"
+            [class.bi-chevron-up]="isAboutOpen('video')"
+          ></i>
+        </button>
+        @if (isAboutOpen('video')) {
+          <div class="acc-body">
+            <div class="video-container">
+              <iframe
+                [src]="presentationVideoUrl()"
+                frameborder="0"
+                allow="
+                  accelerometer;
+                  autoplay;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                "
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        }
       </div>
     </div>
-    <div class="row mt-5">
-      <div class="col-12 text-center">
-        <div class="developer-photo-container">
-          <img src="perfil/nicobaez2.jpeg" alt="Nicolás Báez" class="developer-photo" />
-        </div>
-      </div>
-    </div>
-    <div class="row mt-5 justify-content-center">
-      <div class="col-12 text-center mb-3">
-        <h3 class="skills-title">{{ t().presentationVideoTitle }}</h3>
-      </div>
-      <div class="presentation-video-wrapper">
-        <div class="video-container">
-          <iframe
-            [src]="presentationVideoUrl()"
-            frameborder="0"
-            allow="
-              accelerometer;
-              autoplay;
-              clipboard-write;
-              encrypted-media;
-              gyroscope;
-              picture-in-picture;
-            "
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-    </div>
+
     <div class="mt-5">
-      <div class="row justify-content-center" style="gap: 2rem; row-gap: 2rem">
-        <div class="col-12 mb-1" style="flex: 0 0 100%; max-width: 100%">
+      <div class="row skills-row justify-content-center">
+        <div class="col-12 mb-1">
           <h3 id="skills" class="skills-title">{{ t().skills.title }}</h3>
         </div>
 
-        <div
-          style="
-            flex: 0 0 calc(33.333% - 1.4rem);
-            max-width: calc(33.333% - 1.4rem);
-            margin-bottom: 0;
-          "
-        >
-          <div class="skill-card">
+        <div class="col-skill-item">
+          <div class="skill-card skill-desktop-card">
             <h4 class="skill-card-title">Frontend</h4>
             <div class="skill-icons">
               @for (skill of skills.frontend; track skill.name) {
@@ -243,16 +386,19 @@
               }
             </div>
           </div>
+
+          <button class="skill-mobile-trigger" (click)="openSkillModal('frontend')">
+            <div class="skill-trigger-icon"><i class="bi bi-window-stack"></i></div>
+            <div class="skill-trigger-body">
+              <h4>Frontend</h4>
+              <span>Angular · TypeScript · SCSS</span>
+            </div>
+            <i class="bi bi-chevron-right skill-chevron"></i>
+          </button>
         </div>
 
-        <div
-          style="
-            flex: 0 0 calc(33.333% - 1.4rem);
-            max-width: calc(33.333% - 1.4rem);
-            margin-bottom: 0;
-          "
-        >
-          <div class="skill-card">
+        <div class="col-skill-item">
+          <div class="skill-card skill-desktop-card">
             <h4 class="skill-card-title">Backend</h4>
             <div class="skill-icons">
               @for (skill of skills.backend; track skill.name) {
@@ -263,16 +409,19 @@
               }
             </div>
           </div>
+
+          <button class="skill-mobile-trigger" (click)="openSkillModal('backend')">
+            <div class="skill-trigger-icon"><i class="bi bi-server"></i></div>
+            <div class="skill-trigger-body">
+              <h4>Backend</h4>
+              <span>Java · Spring Boot · C# .NET</span>
+            </div>
+            <i class="bi bi-chevron-right skill-chevron"></i>
+          </button>
         </div>
 
-        <div
-          style="
-            flex: 0 0 calc(33.333% - 1.4rem);
-            max-width: calc(33.333% - 1.4rem);
-            margin-bottom: 0;
-          "
-        >
-          <div class="skill-card">
+        <div class="col-skill-item">
+          <div class="skill-card skill-desktop-card">
             <h4 class="skill-card-title">DevOps</h4>
             <div class="skill-icons">
               @for (skill of skills.devops; track skill.name) {
@@ -283,16 +432,19 @@
               }
             </div>
           </div>
+
+          <button class="skill-mobile-trigger" (click)="openSkillModal('devops')">
+            <div class="skill-trigger-icon"><i class="bi bi-gear-wide-connected"></i></div>
+            <div class="skill-trigger-body">
+              <h4>DevOps</h4>
+              <span>Git · Docker · GitHub Actions</span>
+            </div>
+            <i class="bi bi-chevron-right skill-chevron"></i>
+          </button>
         </div>
 
-        <div
-          style="
-            flex: 0 0 calc(33.333% - 1.4rem);
-            max-width: calc(33.333% - 1.4rem);
-            margin-bottom: 0;
-          "
-        >
-          <div class="skill-card">
+        <div class="col-skill-item">
+          <div class="skill-card skill-desktop-card">
             <h4 class="skill-card-title">{{ t().skills.databases }}</h4>
             <div class="skill-icons">
               @for (skill of skills.databases; track skill.name) {
@@ -303,16 +455,19 @@
               }
             </div>
           </div>
+
+          <button class="skill-mobile-trigger" (click)="openSkillModal('databases')">
+            <div class="skill-trigger-icon"><i class="bi bi-database-fill"></i></div>
+            <div class="skill-trigger-body">
+              <h4>{{ t().skills.databases }}</h4>
+              <span>PostgreSQL · MySQL · SQL Server</span>
+            </div>
+            <i class="bi bi-chevron-right skill-chevron"></i>
+          </button>
         </div>
 
-        <div
-          style="
-            flex: 0 0 calc(33.333% - 1.4rem);
-            max-width: calc(33.333% - 1.4rem);
-            margin-bottom: 0;
-          "
-        >
-          <div class="skill-card">
+        <div class="col-skill-item">
+          <div class="skill-card skill-desktop-card">
             <h4 class="skill-card-title">Deployment</h4>
             <div class="skill-icons">
               @for (skill of skills.deployment; track skill.name) {
@@ -323,6 +478,15 @@
               }
             </div>
           </div>
+
+          <button class="skill-mobile-trigger" (click)="openSkillModal('deployment')">
+            <div class="skill-trigger-icon"><i class="bi bi-cloud-arrow-up-fill"></i></div>
+            <div class="skill-trigger-body">
+              <h4>Deployment</h4>
+              <span>Railway · Render · Vercel</span>
+            </div>
+            <i class="bi bi-chevron-right skill-chevron"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -333,9 +497,9 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center" style="gap: 2rem; margin-top: 2rem">
-      <div class="col-lg-5 col-xl-5" style="flex: 0 0 45%; max-width: 45%" class="mb-4">
-        <div class="info-card">
+    <div class="row justify-content-center edu-cards-row">
+      <div class="col-edu-card">
+        <div class="info-card edu-desktop-card">
           <h3 class="info-card-title">{{ t().education.academicTitle }}</h3>
           <ul class="info-list">
             @for (entry of t().educationEntries; track entry.institution + entry.degree) {
@@ -354,10 +518,21 @@
             </li>
           </ul>
         </div>
+
+        <button class="edu-mobile-trigger" (click)="openEduModal('academic')">
+          <div class="edu-trigger-icon">
+            <i class="bi bi-mortarboard-fill"></i>
+          </div>
+          <div class="edu-trigger-body">
+            <h4>{{ t().education.academicTitle }}</h4>
+            <span>UTN · Coderhouse</span>
+          </div>
+          <i class="bi bi-chevron-right edu-chevron"></i>
+        </button>
       </div>
 
-      <div class="col-lg-5 col-xl-5" style="flex: 0 0 45%; max-width: 45%" class="mb-4">
-        <div class="info-card">
+      <div class="col-edu-card">
+        <div class="info-card edu-desktop-card">
           <h3 class="info-card-title">{{ t().education.profileTitle }}</h3>
           <p class="info-text" [innerHTML]="t().education.profile1"></p>
           <p class="info-text" [innerHTML]="t().education.profile2"></p>
@@ -366,6 +541,17 @@
             <p><i class="bi bi-envelope-fill"></i> nicolasbaez1201@gmail.com</p>
           </div>
         </div>
+
+        <button class="edu-mobile-trigger" (click)="openEduModal('profile')">
+          <div class="edu-trigger-icon">
+            <i class="bi bi-person-badge-fill"></i>
+          </div>
+          <div class="edu-trigger-body">
+            <h4>{{ t().education.profileTitle }}</h4>
+            <span>Full Stack Developer Jr</span>
+          </div>
+          <i class="bi bi-chevron-right edu-chevron"></i>
+        </button>
       </div>
     </div>
     <div class="mt-5">
@@ -375,7 +561,7 @@
         </div>
       </div>
     </div>
-    <div class="projects-grid" style="margin-top: 2rem">
+    <div class="projects-grid d-none d-lg-grid" style="margin-top: 2rem">
       @for (project of projects; track project.id) {
         <div class="project-banner" (click)="openProjectModal(project)">
           <div class="banner-icon">
@@ -401,6 +587,47 @@
         </div>
       }
     </div>
+    <div class="scroll-carousel-wrap d-lg-none">
+      <div class="projects-grid" style="margin-top: 2rem" (scroll)="onProjectsScroll($event)">
+        @for (project of projects; track project.id) {
+          <div class="project-banner" (click)="openProjectModal(project)">
+            <div class="banner-icon">
+              <img [src]="project.logo" [alt]="project.title" />
+              @if (project.featured) {
+                <span class="special-badge">{{ t().projects.featured }}</span>
+              }
+            </div>
+            <div class="banner-info">
+              <h4 class="banner-title">
+                <span class="d-none d-lg-inline">{{
+                  lang() === 'en' && project.titleEn ? project.titleEn : project.title
+                }}</span>
+                <span class="d-lg-none">{{
+                  lang() === 'en'
+                    ? (project.titleMobileEn ??
+                      project.titleMobile ??
+                      project.titleEn ??
+                      project.title)
+                    : (project.titleMobile ?? project.title)
+                }}</span>
+              </h4>
+              <div class="banner-status">
+                @if (project.deployLink) {
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>{{ t().projects.live }}</span>
+                } @else {
+                  <i class="bi bi-code-slash"></i>
+                  <span>{{ t().projects.codeOnly }}</span>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="scroll-hint-bar">
+        <span [style.transform]="'translateX(' + projectsScrollPct() * 150 + '%)'"></span>
+      </div>
+    </div>
     <div class="mt-5">
       <div class="row justify-content-center" style="gap: 2rem; row-gap: 2rem">
         <div class="col-12 mb-1" style="flex: 0 0 100%; max-width: 100%">
@@ -408,18 +635,12 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center" style="gap: 2rem; margin-top: 2rem; row-gap: 2rem">
+
+    <div class="row cert-row justify-content-center d-none d-lg-flex" style="margin-top: 2rem">
       @for (certificate of certificates; track certificate.id) {
-        <div
-          style="
-            flex: 0 0 calc(33.333% - 1.4rem);
-            max-width: calc(33.333% - 1.4rem);
-            margin-bottom: 0;
-            display: flex;
-          "
-        >
-          <div class="certificate-card">
-            <div class="certificate-image" (click)="openCertificateModal(certificate)">
+        <div class="col-cert-item">
+          <div class="certificate-card" (click)="openCertificateModal(certificate)">
+            <div class="certificate-image">
               <img [src]="certificate.image" [alt]="certificate.title" />
             </div>
             <div class="certificate-content">
@@ -447,7 +668,12 @@
                   </div>
                 }
                 @if (certificate.verifyLink) {
-                  <a [href]="certificate.verifyLink" target="_blank" class="btn-verify">
+                  <a
+                    [href]="certificate.verifyLink"
+                    target="_blank"
+                    class="btn-verify"
+                    (click)="$event.stopPropagation()"
+                  >
                     <i class="bi bi-patch-check"></i> {{ t().certificates.verify }}
                   </a>
                 }
@@ -456,6 +682,24 @@
           </div>
         </div>
       }
+    </div>
+
+    <div class="scroll-carousel-wrap d-lg-none">
+      <div class="cert-mobile-scroll" (scroll)="onCertsScroll($event)">
+        @for (certificate of certificates; track certificate.id) {
+          <div class="cert-mini-card" (click)="openCertificateModal(certificate)">
+            <div class="cert-mini-img">
+              <img [src]="certificate.image" [alt]="certificate.title" />
+            </div>
+            <span class="cert-mini-title">
+              {{ lang() === 'en' && certificate.titleEn ? certificate.titleEn : certificate.title }}
+            </span>
+          </div>
+        }
+      </div>
+      <div class="scroll-hint-bar">
+        <span [style.transform]="'translateX(' + certsScrollPct() * 150 + '%)'"></span>
+      </div>
     </div>
   </div>
 </section>
@@ -496,6 +740,116 @@
     </div>
   </div>
 </footer>
+
+@if (mobileEduModal()) {
+  <div class="modal-backdrop" (click)="closeEduModal()"></div>
+  <div class="edu-bottom-sheet">
+    <div class="edu-sheet-handle"></div>
+    <button class="edu-sheet-close" (click)="closeEduModal()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+
+    @if (mobileEduModal() === 'academic') {
+      <h3 class="edu-sheet-title">{{ t().education.academicTitle }}</h3>
+      <div class="edu-sheet-content">
+        <ul class="info-list">
+          @for (entry of t().educationEntries; track entry.institution + entry.degree) {
+            <li>
+              <strong>{{ entry.institution }}</strong
+              ><br />{{ entry.degree }}
+              @if (entry.location) {
+                - {{ entry.location }}
+              }
+              <br />{{ entry.period }}
+            </li>
+          }
+          <li>
+            <strong>{{ t().education.continuousDev }}</strong
+            ><br />{{ t().education.continuousDevDesc }}
+          </li>
+        </ul>
+      </div>
+    }
+
+    @if (mobileEduModal() === 'profile') {
+      <h3 class="edu-sheet-title">{{ t().education.profileTitle }}</h3>
+      <div class="edu-sheet-content">
+        <p class="info-text" [innerHTML]="t().education.profile1"></p>
+        <p class="info-text" [innerHTML]="t().education.profile2"></p>
+        <div class="contact-info mt-3">
+          <p><i class="bi bi-geo-alt-fill"></i> {{ t().location }}</p>
+          <p><i class="bi bi-envelope-fill"></i> nicolasbaez1201@gmail.com</p>
+        </div>
+      </div>
+    }
+  </div>
+}
+
+@if (mobileSkillModal()) {
+  <div class="modal-backdrop" (click)="closeSkillModal()"></div>
+  <div class="edu-bottom-sheet skill-bottom-sheet">
+    <div class="edu-sheet-handle"></div>
+    <button class="edu-sheet-close" (click)="closeSkillModal()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+
+    @if (mobileSkillModal() === 'frontend') {
+      <h3 class="edu-sheet-title">Frontend</h3>
+      <div class="skill-sheet-grid">
+        @for (skill of skills.frontend; track skill.name) {
+          <div class="skill-sheet-item">
+            <i [class]="skill.icon + ' skill-sheet-icon'"></i>
+            <span>{{ skill.name }}</span>
+          </div>
+        }
+      </div>
+    }
+    @if (mobileSkillModal() === 'backend') {
+      <h3 class="edu-sheet-title">Backend</h3>
+      <div class="skill-sheet-grid">
+        @for (skill of skills.backend; track skill.name) {
+          <div class="skill-sheet-item">
+            <i [class]="skill.icon + ' skill-sheet-icon'"></i>
+            <span>{{ skill.name }}</span>
+          </div>
+        }
+      </div>
+    }
+    @if (mobileSkillModal() === 'devops') {
+      <h3 class="edu-sheet-title">DevOps</h3>
+      <div class="skill-sheet-grid">
+        @for (skill of skills.devops; track skill.name) {
+          <div class="skill-sheet-item">
+            <i [class]="skill.icon + ' skill-sheet-icon'"></i>
+            <span>{{ skill.name }}</span>
+          </div>
+        }
+      </div>
+    }
+    @if (mobileSkillModal() === 'databases') {
+      <h3 class="edu-sheet-title">{{ t().skills.databases }}</h3>
+      <div class="skill-sheet-grid">
+        @for (skill of skills.databases; track skill.name) {
+          <div class="skill-sheet-item">
+            <i [class]="skill.icon + ' skill-sheet-icon'"></i>
+            <span>{{ skill.name }}</span>
+          </div>
+        }
+      </div>
+    }
+    @if (mobileSkillModal() === 'deployment') {
+      <h3 class="edu-sheet-title">Deployment</h3>
+      <div class="skill-sheet-grid">
+        @for (skill of skills.deployment; track skill.name) {
+          <div class="skill-sheet-item">
+            <i [class]="skill.icon + ' skill-sheet-icon'"></i>
+            <span>{{ skill.name }}</span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}
 
 @if (selectedProject()) {
   <div class="modal-backdrop" (click)="closeProjectModal()"></div>
