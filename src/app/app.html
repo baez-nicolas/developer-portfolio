@@ -561,34 +561,36 @@
         </div>
       </div>
     </div>
-    <div class="projects-grid d-none d-lg-grid" style="margin-top: 2rem">
-      @for (project of projects; track project.id) {
-        <div class="project-banner" (click)="openProjectModal(project)">
-          <div class="banner-icon">
-            <img [src]="project.logo" [alt]="project.title" />
-            @if (project.featured) {
-              <span class="special-badge">{{ t().projects.featured }}</span>
-            }
-          </div>
-          <div class="banner-info">
-            <h4 class="banner-title">
-              {{ lang() === 'en' && project.titleEn ? project.titleEn : project.title }}
-            </h4>
-            <div class="banner-status">
-              @if (project.deployLink) {
-                <i class="bi bi-check-circle-fill"></i>
-                <span>{{ t().projects.live }}</span>
-              } @else {
-                <i class="bi bi-code-slash"></i>
-                <span>{{ t().projects.codeOnly }}</span>
+    <div class="d-none d-lg-block">
+      <div class="projects-grid" style="margin-top: 2rem">
+        @for (project of projects; track project.id) {
+          <div class="project-banner" (click)="openProjectModal(project)">
+            <div class="banner-icon">
+              <img [src]="project.logo" [alt]="project.title" />
+              @if (project.featured) {
+                <span class="special-badge">{{ t().projects.featured }}</span>
               }
             </div>
+            <div class="banner-info">
+              <h4 class="banner-title">
+                {{ lang() === 'en' && project.titleEn ? project.titleEn : project.title }}
+              </h4>
+              <div class="banner-status">
+                @if (project.deployLink) {
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>{{ t().projects.live }}</span>
+                } @else {
+                  <i class="bi bi-code-slash"></i>
+                  <span>{{ t().projects.codeOnly }}</span>
+                }
+              </div>
+            </div>
           </div>
-        </div>
-      }
+        }
+      </div>
     </div>
     <div class="scroll-carousel-wrap d-lg-none">
-      <div class="projects-grid" style="margin-top: 2rem" (scroll)="onProjectsScroll($event)">
+      <div class="projects-grid" (scroll)="onProjectsScroll($event)">
         @for (project of projects; track project.id) {
           <div class="project-banner" (click)="openProjectModal(project)">
             <div class="banner-icon">

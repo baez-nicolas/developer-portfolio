@@ -2141,9 +2141,10 @@ body {
 
   .scroll-carousel-wrap {
     position: relative;
+    margin-top: 1rem;
 
     .projects-grid {
-      margin-top: 0.75rem !important;
+      margin-top: 0 !important;
     }
   }
 
