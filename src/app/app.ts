@@ -465,6 +465,7 @@ export class App implements OnInit {
       ],
       image: 'syncmarket/syncMarketPortada.png',
       logo: 'syncmarket/syncMarketLogo.png',
+      videoMarketing: 'https://www.youtube.com/watch?v=98VCgYRj2zU',
       githubLink: 'https://github.com/baez-nicolas/syncmarket.git',
       deployLink: 'https://syncmarket.onrender.com/',
       featured: true,
